@@ -29,17 +29,16 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<MemberLoginDto> login(@Valid @RequestBody MemberLoginReq memberLoginReq, HttpServletRequest request) {
-
+        System.out.println("memberLoginReq = " + memberLoginReq.toString());
         Member loginMember = memberService.login(memberLoginReq);
         // 로그인 성공처리
         // 세션이 있으면 세션 반환 없으면 신규 세션 생성
         HttpSession session = request.getSession();
         session.setAttribute("memberId", loginMember.getMemberId());
 
-        ProfileDto profileDto = profileService.readProfile(loginMember.getMemberId());
+//        ProfileDto profileDto = profileService.readProfile(loginMember.getMemberId());
         return new ResponseEntity<>(MemberLoginDto.builder()
                 .memberId(loginMember.getMemberId())
-                .memberCustomUrl(profileDto.getMemberCustomUrl())
                 .build(), HttpStatus.OK);
 
     }

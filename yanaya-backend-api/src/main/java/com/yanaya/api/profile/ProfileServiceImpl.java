@@ -84,22 +84,27 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ProfileDto readProfile(String memberCustomUrl) {
-        Profile profileEntity = profileRepository.findByMemberCustomUrl(memberCustomUrl).orElseThrow(() ->
-        new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Profile profileEntity = profileRepository.findByMemberCustomUrl(memberCustomUrl).get();
+//        Profile profileEntity = profileRepository.findByMemberCustomUrl(memberCustomUrl).orElseThrow(() ->
+//        new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).get();
 
-        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).orElseThrow(
+//                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         return getProfileDto(profileEntity, companyEntity);
     }
 
     @Override
     public ProfileDto readProfile(Long memberId) {
-        Profile profileEntity = profileRepository.findById(memberId).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Profile profileEntity = profileRepository.findById(memberId).get();
+//        Profile profileEntity = profileRepository.findById(memberId).orElseThrow(() ->
+//                new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).get();
+
+//        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).orElseThrow(
+//                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         return getProfileDto(profileEntity, companyEntity);
     }
