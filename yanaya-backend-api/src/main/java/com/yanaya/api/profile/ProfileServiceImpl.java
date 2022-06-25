@@ -4,6 +4,7 @@ import com.yanaya.api.company.entity.Company;
 import com.yanaya.api.company.repository.CompanyRepository;
 import com.yanaya.api.profile.dto.ProfileDto;
 import com.yanaya.api.profile.dto.ProfileReq;
+import com.yanaya.api.profile.dto.ProfileUrlDto;
 import com.yanaya.api.profile.entity.Profile;
 import com.yanaya.api.profile.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Transactional
     @Override
-    public ProfileDto createProfile(Long memberId, ProfileReq profileReq, MultipartFile profileImageFile) {
+    public ProfileUrlDto createProfile(Long memberId, ProfileReq profileReq, MultipartFile profileImageFile) {
         UUID uuid = UUID.randomUUID(); // uuid
         String imageFileName = uuid + "_" + profileImageFile.getOriginalFilename(); // 1.jpg
         System.out.println("이미지 파일이름 : " + imageFileName);
@@ -73,7 +74,9 @@ public class ProfileServiceImpl implements ProfileService {
                 .build();
 
         profileEntity = profileRepository.save(profileEntity);
-        return getProfileDto(profileEntity, companyEntity);
+        return ProfileUrlDto.builder()
+                .memberCustomUrl(profileEntity.getMemberCustomUrl())
+                .build();
     }
 
     @Override
@@ -87,10 +90,20 @@ public class ProfileServiceImpl implements ProfileService {
         return getProfileDto(profileEntity, companyEntity);
     }
 
+    @Override
+    public ProfileDto readProfile(Long memberId) {
+        Profile profileEntity = profileRepository.findById(memberId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Company companyEntity = companyRepository.findByCompId(profileEntity.getCompId()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return getProfileDto(profileEntity, companyEntity);
+    }
+
     private ProfileDto getProfileDto(Profile profileEntity, Company companyEntity) {
         return ProfileDto.builder()
-                .profileId(profileEntity.getProfileId())
-                .compName(companyEntity.getCompName())
+                .compId(profileEntity.getCompId())
                 .profileImageUrl(profileEntity.getProfileImageUrl())
                 .memberName(profileEntity.getMemberName())
                 .email(profileEntity.getEmail())
