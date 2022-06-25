@@ -32,6 +32,8 @@ public class Profile {
 
     private Boolean gender;
 
+    private String hobby;
+
     @Column(name = "dept_name")
     private String deptName;
 
@@ -40,6 +42,8 @@ public class Profile {
     private String task;
 
     private String position;
+
+    private String techSkill;
     private String mbti;
 
     @ElementCollection
@@ -54,7 +58,7 @@ public class Profile {
     }
 
     @Builder
-    public Profile(Long profileId, Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String deptName, String address, String task, String position, String mbti, List<String> links, String description,String memberCustomUrl, Long memberId) {
+    public Profile(Long profileId, Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender,String hobby, String deptName, String address, String task, String position, String techSkill, String mbti, List<String> links, String description,String memberCustomUrl, Long memberId) {
         this.profileId = profileId;
         this.compId = compId;
         this.profileImageUrl = profileImageUrl;
@@ -62,10 +66,12 @@ public class Profile {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.hobby = hobby;
         this.deptName = deptName;
         this.address = address;
         this.task = task;
         this.position = position;
+        this.techSkill = techSkill;
         this.mbti = mbti;
         this.links = links;
         this.description = description;

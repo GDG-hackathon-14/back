@@ -28,6 +28,8 @@ public class ProfileReq {
     private String phoneNumber;
     @NotNull
     private Boolean gender;
+
+    private String hobby;
     private String address;
     @NotBlank
     private String deptName;
@@ -36,22 +38,26 @@ public class ProfileReq {
     @NotBlank
     private String position;
 
+    private String techSkill;
+
     private String mbti;
     private List<String> links = new ArrayList<String>();
     @Size(min=0,max=100)
     private String description;
 
     @Builder
-    public ProfileReq(String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String deptName, String address, String task, String position, String mbti, List<String> links, String description) {
+    public ProfileReq(String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender,String hobby, String deptName, String address, String task, String position, String techSkill, String mbti, List<String> links, String description) {
         this.profileImageUrl = profileImageUrl;
         this.memberName = memberName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.hobby = hobby;
         this.deptName = deptName;
         this.address = address;
         this.task = task;
         this.position = position;
+        this.techSkill = techSkill;
         this.mbti = mbti;
         this.links = links;
         this.description = description;
