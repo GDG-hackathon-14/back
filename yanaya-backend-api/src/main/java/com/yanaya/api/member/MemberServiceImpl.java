@@ -31,11 +31,11 @@ public class MemberServiceImpl implements MemberService{
                     .password(memberLoginReq.getPassword())
                     .build();
             memberRepository.save(memberEntity);
+            if (!findMember.getPassword().equals(memberLoginReq.getPassword())) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
         }
 
-        if (!findMember.getPassword().equals(memberLoginReq.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
         return findMember;
     }
 
