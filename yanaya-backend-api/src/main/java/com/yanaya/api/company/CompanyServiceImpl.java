@@ -4,6 +4,7 @@ import com.yanaya.api.company.entity.Company;
 import com.yanaya.api.company.repository.CompanyRepository;
 import com.yanaya.api.company.dto.CompanyReq;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class CompanyServiceImpl implements CompanyService{
         return companyRepository.findAll();
     }
 
+    @Transactional
     @Override
     public Long createCompany(CompanyReq companyReq) {
         Company companyEntity = Company.builder()
