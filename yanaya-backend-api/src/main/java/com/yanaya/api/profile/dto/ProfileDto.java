@@ -11,8 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProfileDto {
-    private Long profileId;
-    private String compName;
+    private Long compId;
     private String profileImageUrl;
     private String memberName;
     private String email;
@@ -28,9 +27,8 @@ public class ProfileDto {
     private String memberCustomUrl;
 
     @Builder
-    public ProfileDto(Long profileId, String compName, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String address, String deptName, String task, String position, String mbti, List<String> links, String description, String memberCustomUrl) {
-        this.profileId = profileId;
-        this.compName = compName;
+    public ProfileDto(Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String address, String deptName, String task, String position, String mbti, List<String> links, String description, String memberCustomUrl) {
+        this.compId = compId;
         this.profileImageUrl = profileImageUrl;
         this.memberName = memberName;
         this.email = email;

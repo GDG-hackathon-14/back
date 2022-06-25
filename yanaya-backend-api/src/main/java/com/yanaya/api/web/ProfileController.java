@@ -3,6 +3,7 @@ package com.yanaya.api.web;
 import com.yanaya.api.profile.ProfileService;
 import com.yanaya.api.profile.dto.ProfileDto;
 import com.yanaya.api.profile.dto.ProfileReq;
+import com.yanaya.api.profile.dto.ProfileUrlDto;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ProfileController {
     }
 
     @PostMapping("{memberId}")
-    public ResponseEntity<ProfileDto> createProfile(
+    public ResponseEntity<ProfileUrlDto> createProfile(
             @PathVariable Long memberId,
             @Valid @RequestPart(value = "profileReq") ProfileReq profileReq,
             @RequestPart(value = "profileImageFile", required = false) MultipartFile profileImageFile) {
