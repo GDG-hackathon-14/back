@@ -24,9 +24,8 @@ public class ProfileController {
     @PostMapping("{memberId}")
     public ResponseEntity<ProfileUrlDto> createProfile(
             @PathVariable Long memberId,
-            @Valid @RequestPart(value = "profileReq") ProfileReq profileReq,
-            @RequestPart(value = "profileImageFile", required = false) MultipartFile profileImageFile) {
-        return new ResponseEntity<>(profileService.createProfile(memberId, profileReq, profileImageFile), HttpStatus.CREATED);
+            @Valid @RequestBody ProfileReq profileReq) {
+        return new ResponseEntity<>(profileService.createProfile(memberId, profileReq), HttpStatus.CREATED);
     }
 
     @GetMapping("/{memberCustomUrl}")

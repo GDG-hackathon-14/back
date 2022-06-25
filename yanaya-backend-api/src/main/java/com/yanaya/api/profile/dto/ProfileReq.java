@@ -20,6 +20,7 @@ public class ProfileReq {
     @NotNull
     private Long compId;
     private String profileImageUrl;
+    private String profileImageName;
     @NotBlank
     private String memberName;
     @Email
@@ -46,8 +47,9 @@ public class ProfileReq {
     private String description;
 
     @Builder
-    public ProfileReq(String profileImageUrl, String memberName, String email, String phoneNumber, String gender,String hobby, String deptName, String address, String task, String position, List<String> techSkills, String mbti, List<String> links, String description) {
+    public ProfileReq(String profileImageUrl, String profileImageName, String memberName, String email, String phoneNumber, String gender,String hobby, String deptName, String address, String task, String position, List<String> techSkills, String mbti, List<String> links, String description) {
         this.profileImageUrl = profileImageUrl;
+        this.profileImageName = profileImageName;
         this.memberName = memberName;
         this.email = email;
         this.phoneNumber = phoneNumber;
