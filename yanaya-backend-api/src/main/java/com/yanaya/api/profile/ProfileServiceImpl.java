@@ -7,15 +7,17 @@ import com.yanaya.api.profile.dto.ProfileReq;
 import com.yanaya.api.profile.dto.ProfileUrlDto;
 import com.yanaya.api.profile.entity.Profile;
 import com.yanaya.api.profile.repository.ProfileRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.nio.file.Files;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -37,19 +39,18 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Transactional
     @Override
-    public ProfileUrlDto createProfile(Long memberId, ProfileReq profileReq, MultipartFile profileImageFile) {
+    public ProfileUrlDto createProfile(Long memberId, ProfileReq profileReq) throws IOException {
         UUID uuid = UUID.randomUUID(); // uuid
-        String imageFileName = uuid + "_" + profileImageFile.getOriginalFilename(); // 1.jpg
-        System.out.println("이미지 파일이름 : " + imageFileName);
-
+        String imageFileName = uuid + "_" + profileReq.getProfileImageName();
         Path imageFilePath = Paths.get(uploadFolder + imageFileName);
+        byte[] decode = Base64.decodeBase64(profileReq.getProfileImageUrl());
+        FileOutputStream fos;
+        File target = new File(imageFilePath.toString());
+        target.createNewFile();
+        fos = new FileOutputStream(target);
+        fos.write(decode);
+        fos.close();
 
-        // 통신, I/O -> 예외가 발생할 수 있다.
-        try {
-            Files.write(imageFilePath, profileImageFile.getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         String memberCustomUrl = uuid + memberId.toString();
 
         Company companyEntity = companyRepository.findByCompId(profileReq.getCompId()).orElseThrow(
