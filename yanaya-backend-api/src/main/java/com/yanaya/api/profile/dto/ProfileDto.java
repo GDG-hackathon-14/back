@@ -1,75 +1,48 @@
-package com.yanaya.api.profile.entity;
+package com.yanaya.api.profile.dto;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Entity
-@Table(name = "profile")
-public class Profile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "profile_id")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class ProfileDto {
     private Long profileId;
-
-    @Column(name = "ccomp_id")
-    private Long compId;
-
-    @Column(name = "profile_image_url")
+    private String compName;
     private String profileImageUrl;
-
-    @Column(name = "mamber_name")
     private String memberName;
-
     private String email;
-
-    @Column(name = "phone_number")
     private String phoneNumber;
-
     private Boolean gender;
-
-    @Column(name = "dept_name")
-    private String deptName;
-
     private String address;
-
+    private String deptName;
     private String task;
-
     private String position;
     private String mbti;
-
-    @ElementCollection
     private List<String> links = new ArrayList<String>();
     private String description;
-
     private String memberCustomUrl;
 
-    private Long memberId;
-
-    public Profile() {
-    }
-
     @Builder
-    public Profile(Long profileId, Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String deptName, String address, String task, String position, String mbti, List<String> links, String description,String memberCustomUrl, Long memberId) {
+    public ProfileDto(Long profileId, String compName, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String address, String deptName, String task, String position, String mbti, List<String> links, String description, String memberCustomUrl) {
         this.profileId = profileId;
-        this.compId = compId;
+        this.compName = compName;
         this.profileImageUrl = profileImageUrl;
         this.memberName = memberName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
-        this.deptName = deptName;
         this.address = address;
+        this.deptName = deptName;
         this.task = task;
         this.position = position;
         this.mbti = mbti;
         this.links = links;
         this.description = description;
         this.memberCustomUrl = memberCustomUrl;
-        this.memberId = memberId;
     }
 }

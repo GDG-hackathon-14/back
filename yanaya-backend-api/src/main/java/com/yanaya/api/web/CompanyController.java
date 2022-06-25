@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class CompanyController {
     }
 
     @PostMapping()
-    public ResponseEntity<Long> saveCompany(@RequestBody CompanyReq companyReq) {
+    public ResponseEntity<Long> saveCompany(@Valid @RequestBody CompanyReq companyReq) {
         return new ResponseEntity<>(companyService.createCompany(companyReq), HttpStatus.CREATED);
     }
 }
