@@ -30,7 +30,7 @@ public class Profile {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    private Boolean gender;
+    private String gender;
 
     private String hobby;
 
@@ -43,7 +43,8 @@ public class Profile {
 
     private String position;
 
-    private String techSkill;
+    @ElementCollection
+    private List<String> techSkills = new ArrayList<>();
     private String mbti;
 
     @ElementCollection
@@ -58,7 +59,7 @@ public class Profile {
     }
 
     @Builder
-    public Profile(Long profileId, Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender,String hobby, String deptName, String address, String task, String position, String techSkill, String mbti, List<String> links, String description,String memberCustomUrl, Long memberId) {
+    public Profile(Long profileId, Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, String gender,String hobby, String deptName, String address, String task, String position, List<String> techSkills, String mbti, List<String> links, String description,String memberCustomUrl, Long memberId) {
         this.profileId = profileId;
         this.compId = compId;
         this.profileImageUrl = profileImageUrl;
@@ -71,7 +72,7 @@ public class Profile {
         this.address = address;
         this.task = task;
         this.position = position;
-        this.techSkill = techSkill;
+        this.techSkills = techSkills;
         this.mbti = mbti;
         this.links = links;
         this.description = description;
