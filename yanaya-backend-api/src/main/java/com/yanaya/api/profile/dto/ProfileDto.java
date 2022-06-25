@@ -17,27 +17,31 @@ public class ProfileDto {
     private String email;
     private String phoneNumber;
     private Boolean gender;
+    private String hobby;
     private String address;
     private String deptName;
     private String task;
     private String position;
+    private String techSkill;
     private String mbti;
     private List<String> links = new ArrayList<String>();
     private String description;
     private String memberCustomUrl;
 
     @Builder
-    public ProfileDto(Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender, String address, String deptName, String task, String position, String mbti, List<String> links, String description, String memberCustomUrl) {
+    public ProfileDto(Long compId, String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender,String hobby, String address, String deptName, String task, String position, String techSkill, String mbti, List<String> links, String description, String memberCustomUrl) {
         this.compId = compId;
         this.profileImageUrl = profileImageUrl;
         this.memberName = memberName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.hobby = hobby;
         this.address = address;
         this.deptName = deptName;
         this.task = task;
         this.position = position;
+        this.techSkill = techSkill;
         this.mbti = mbti;
         this.links = links;
         this.description = description;
