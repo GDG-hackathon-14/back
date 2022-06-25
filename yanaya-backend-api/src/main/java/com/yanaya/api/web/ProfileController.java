@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/profile")
@@ -24,7 +25,7 @@ public class ProfileController {
     @PostMapping("{memberId}")
     public ResponseEntity<ProfileUrlDto> createProfile(
             @PathVariable Long memberId,
-            @Valid @RequestBody ProfileReq profileReq) {
+            @Valid @RequestBody ProfileReq profileReq) throws IOException {
         return new ResponseEntity<>(profileService.createProfile(memberId, profileReq), HttpStatus.CREATED);
     }
 
