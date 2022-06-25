@@ -26,8 +26,8 @@ public class ProfileReq {
     private String email;
     @NotBlank
     private String phoneNumber;
-    @NotNull
-    private Boolean gender;
+    @NotBlank
+    private String gender;
 
     private String hobby;
     private String address;
@@ -38,7 +38,7 @@ public class ProfileReq {
     @NotBlank
     private String position;
 
-    private String techSkill;
+    private List<String> techSkills;
 
     private String mbti;
     private List<String> links = new ArrayList<String>();
@@ -46,7 +46,7 @@ public class ProfileReq {
     private String description;
 
     @Builder
-    public ProfileReq(String profileImageUrl, String memberName, String email, String phoneNumber, Boolean gender,String hobby, String deptName, String address, String task, String position, String techSkill, String mbti, List<String> links, String description) {
+    public ProfileReq(String profileImageUrl, String memberName, String email, String phoneNumber, String gender,String hobby, String deptName, String address, String task, String position, List<String> techSkills, String mbti, List<String> links, String description) {
         this.profileImageUrl = profileImageUrl;
         this.memberName = memberName;
         this.email = email;
@@ -57,7 +57,7 @@ public class ProfileReq {
         this.address = address;
         this.task = task;
         this.position = position;
-        this.techSkill = techSkill;
+        this.techSkills = techSkills;
         this.mbti = mbti;
         this.links = links;
         this.description = description;

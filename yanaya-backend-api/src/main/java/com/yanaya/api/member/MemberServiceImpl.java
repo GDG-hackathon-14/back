@@ -24,14 +24,19 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member login(MemberLoginReq memberLoginReq) {
-        Member findMember = memberRepository.findByEmail(memberLoginReq.getEmail())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Member findMember = memberRepository.findByEmail(memberLoginReq.getEmail()).get();
+        if (findMember == null) {
+            Member memberEntity = Member.builder()
+                    .email(memberLoginReq.getEmail())
+                    .password(memberLoginReq.getPassword())
+                    .build();
+            memberRepository.save(memberEntity);
+        }
 
         if (!findMember.getPassword().equals(memberLoginReq.getPassword())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return findMember;
     }
-
 
 }
