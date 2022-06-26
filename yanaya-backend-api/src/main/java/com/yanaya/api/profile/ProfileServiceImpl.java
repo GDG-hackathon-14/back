@@ -76,6 +76,7 @@ public class ProfileServiceImpl implements ProfileService {
                 .memberId(memberId)
                 .build();
 
+        System.out.println("profileEntity.toString() = " + profileEntity.toString());
         profileEntity = profileRepository.save(profileEntity);
         return ProfileUrlDto.builder()
                 .memberCustomUrl(profileEntity.getMemberCustomUrl())
@@ -110,9 +111,10 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     private ProfileDto getProfileDto(Profile profileEntity, Company companyEntity) {
+        Path imageFilePath = Paths.get(uploadFolder + profileEntity.getProfileImageUrl());
         return ProfileDto.builder()
                 .compId(profileEntity.getCompId())
-                .profileImageUrl(profileEntity.getProfileImageUrl())
+                .profileImageUrl(imageFilePath.toString())
                 .memberName(profileEntity.getMemberName())
                 .email(profileEntity.getEmail())
                 .phoneNumber(profileEntity.getPhoneNumber())
